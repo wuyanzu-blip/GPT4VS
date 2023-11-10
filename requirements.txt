@@ -1,0 +1,6 @@
+IPython
+openai
+moviepy
+streamlit
+tempfile
+OpenCV
