@@ -1,6 +1,6 @@
-cv2
-IPython
-openai
-moviepy
-streamlit
-opencv-python
+ipython==8.14.0
+moviepy==1.0.3
+openai==0.27.8
+opencv_python==4.8.1.78
+Requests==2.31.0
+streamlit==1.25.0
