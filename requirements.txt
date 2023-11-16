@@ -1,3 +1,4 @@
+cv2
 IPython
 openai
 moviepy
