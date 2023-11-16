@@ -1,5 +1,4 @@
 # from dotenv import load_dotenv
-from IPython.display import display, Image,Audio
 from moviepy.editor import VideoFileClip,AudioFileClip
 from moviepy.audio.io.AudioFileClip import AudioFileClip
 
