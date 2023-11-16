@@ -2,4 +2,4 @@ IPython
 openai
 moviepy
 streamlit
-python-opencv
+opencv-python
