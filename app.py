@@ -147,11 +147,16 @@ def main():
         )
     
     
-    if st.button("Generate Story",type="primary") and uploaded_file is not None:
-        with st.spinner("Generating Story..."):
+    if st.button("生成",type="primary") and uploaded_file is not None:
+        with st.spinner("生成中..."):
             base64Frame,video_filename,video_duration=video_to_frames(uploaded_file)
-            est_word_count=video_duration*4
-            final_prompt=prompt+f"(This video is ONLY {video_duration} seconds long.so make sure the voice over MUST be able to be explained in less that {est_word_count} words)"
+            if video_duration > 60:
+                e = RuntimeError('视频超长会导致生成失败，请选择一分钟以内的视频')
+                st.exception(e)
+                exit()
+            est_word_count=video_duration
+            # est_word_count=video_duration*4
+            final_prompt=prompt+f"(This video is ONLY {video_duration} seconds long.so make sure the voice over MUST be able to be explained in less that {est_word_count} words).Don't answer me, please start generating directly"
             text=frames_to_story(base64Frame,final_prompt,openai_key)
             st.write(text)
             #Generate audio from text
