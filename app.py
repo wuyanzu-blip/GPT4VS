@@ -158,21 +158,27 @@ def main():
             # est_word_count=video_duration*4
             final_prompt=prompt+f"(This video is ONLY {video_duration} seconds long.so make sure the voice over MUST be able to be explained in less that {est_word_count} words).Don't answer me, please start generating directly"
             text=frames_to_story(base64Frame,final_prompt,openai_key)
+            # if 'text' not in st.session_state:
+            #     st.session_state['text'] = text
+            # if 'text' not in st.session_state:
+            #     st.session_state.key = text
             st.write(text)
-            #Generate audio from text
-            audio_filename,audio_bytes_io=text_to_audio(text,openai_key,classify)
-            #merge audio and video
-            output_video_filename=os.path.splitext(video_filename)[0]+"_output.mp4"
-            
-            final_video_filename=merge_audio_video(video_filename,audio_filename,output_video_filename)
-            
+            if text is not None:
+                st.write('(生成文案如果不正确或不满意，您可以重新点击生成)')
+                #Generate audio from text
+                audio_filename,audio_bytes_io=text_to_audio(text,openai_key,classify)
+                #merge audio and video
+                output_video_filename=os.path.splitext(video_filename)[0]+"_output.mp4"
+                
+                final_video_filename=merge_audio_video(video_filename,audio_filename,output_video_filename)
+                
 
-            #display the result
-            st.video(final_video_filename)
-            
-            #clean up the temporary files
-            os.unlink(video_filename)
-            os.unlink(audio_filename)
-            os.unlink(final_video_filename)
+                #display the result
+                st.video(final_video_filename)
+                
+                #clean up the temporary files
+                os.unlink(video_filename)
+                os.unlink(audio_filename)
+                os.unlink(final_video_filename)
 if __name__=="__main__":
     main()
